@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DishController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dishes.index');
+});
+
+Route::controller(DishController::class)->group(function()
+{
+    Route::get('/dish','index')->name('dish.index');
+    Route::post('/dish/create','store')->name('dish.store');
+    Route::get('/dish/{dish}/edit','edit')->name('dish.edit');
+    Route::patch('/dish/{dish}','update')->name('dish.update');
+    Route::delete('/dish/{dish}','destroy')->name('dish.destroy');
 });
