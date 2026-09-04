@@ -36,7 +36,12 @@ class DishController extends Controller
             'title' => $request->input('title'),
             'body' => $request->input('body'),
         ]);
-        $dish->addMediaFromRequest('image')->toMediaCollection('images');
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $imageFile){
+                $dish->addMedia($imageFile)->toMediaCollection('images');
+            }
+        }
+
 
         return 'تمت الاضافة بنجاح';
 
@@ -68,8 +73,13 @@ class DishController extends Controller
             'title' => $request->input('title'),
             'body' => $request->input('body'),
         ]);
-        $dish->clearMediaCollection('images');
-        $dish->addMediaFromRequest('image')->toMediaCollection('images');
+        
+        if($request->hasFile('images')){
+            $dish->clearMediaCollection('images');
+            foreach($request->file('images') as $imageFile){
+                $dish->addMedia($imageFile)->toMediaCollection('images');
+            }
+        }
 
         return 'تمت تعديل بنجاح';
 

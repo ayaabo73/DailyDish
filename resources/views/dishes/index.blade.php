@@ -10,8 +10,8 @@
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     <br><br>
-    <input type="file"  name="image" placeholder="image"  class="@error('image') is-invalid @enderror">
-    @error('image')
+    <input type="file"  name="image[]" placeholder="image"  multiple class="@error('image') is-invalid @enderror">
+    @error('image[]')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     <br><br>
@@ -29,7 +29,10 @@
       <tr>
         <td scope="title">{{ $dish->title}}</td>
         <td scope="body">{{ $dish->body}}</td>
-        <td> <img src="{{asset($dish->getFirstMediaUrl('images'))}}" alt="{{ $dish->title }}" width="70" ></td>
+        <td> @foreach ($dish ->getMedia('images') as $media)
+            <img src="{{asset($media->getUrl())}}" alt="{{ $dish->title }}" width="70" >
+            @endforeach
+          </td>
         <td>
           <a href="{{ route('dish.edit',"$dish->id") }}" class="btn btn-primary btn-sm">update</a>
           <form action="{{route('dish.destroy',$dish->id) }}" method="post">

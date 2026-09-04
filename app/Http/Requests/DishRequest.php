@@ -24,7 +24,8 @@ class DishRequest extends FormRequest
         return [
             'title' => 'required|string',
             'body' => 'required|string',
-            'image'=>'required|image|mimes:png,jpg|max:2048 ',
+            'images'=>'nullable|array',
+            'images.*'=>'image|mimes:jpeg,png,jpg,gif|max:2048 ',
         ];
     }
 }

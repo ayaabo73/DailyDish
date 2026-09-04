@@ -24,6 +24,8 @@ class DishUpdateRequest extends FormRequest
         return [
             'title' => 'required|string',
             'body' => 'required|string',
+            'images'=>'nullable|array',
+            'images.*'=>'image|mimes:jpeg,png,jpg,gif|max:2048 ',
         ];
     }
 }

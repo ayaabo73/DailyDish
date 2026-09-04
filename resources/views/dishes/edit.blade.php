@@ -12,12 +12,14 @@
     @enderror
     <br><br>
     <div class="mb-3">
-        <img src="{{asset($dish->getFirstMediaUrl('images'))}}" alt="{{ $dish->title }}" width="200">
+        @foreach ($dish ->getMedia('images') as $media)
+        <img src="{{asset($media->getUrl())}}" alt="{{ $dish->title }}" width="200">
     </div>
-    <input type="file"  name="image" placeholder="image"  class="@error('image') is-invalid @enderror">
-    @error('image')
+    <input type="file"  name="image[]" placeholder="image"  class="@error('image') is-invalid @enderror">
+    @error('image[]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
+    @endforeach
     <br><br>
     <button type="submit">update</button>
 </form>
